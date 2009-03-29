@@ -5,7 +5,7 @@ describe "listing groups" do
   describe "Default Cocoa Project" do
     before(:each) do
       @project = File.dirname(__FILE__) + '/../../test_data/Default Cocoa Project/Default Cocoa Project.xcodeproj'
-      @reader = XcodeReader.new(@project)
+      @reader = XcodeprojReader::Reader.new(@project)
     end
     
     it "should return the number of groups" do
