@@ -1,12 +1,30 @@
 require File.dirname(__FILE__) + '/spec_helper.rb'
 
 describe PbxprojParser do
+  
+  class ParseMatcher
+    def initialize(string)
+      @string = string
+    end
+    def matches?(target)
+      @parser = target
+      @parser.parse(@string) != nil
+    end
+    def failure_message
+      @parser.failure_reason
+    end
+  end
+  def parse(string)
+    ParseMatcher.new(string)
+  end
+  
+  
   before(:each) do
     @parser = PbxprojParser.new
   end
   def should_parse(text)
     text = text.indent(-6).gsub(/^\n/, '')
-    @parser.parse(text).should_not be_nil
+    @parser.should parse(text)
   end
   it "should parse an empty document" do
     should_parse(%{
