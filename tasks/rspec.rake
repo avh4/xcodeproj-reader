@@ -1,9 +1,4 @@
-begin
-  require 'spec'
-rescue LoadError
-  require 'rubygems'
-  require 'spec'
-end
+require 'spec'
 begin
   require 'spec/rake/spectask'
 rescue LoadError
