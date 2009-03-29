@@ -23,7 +23,7 @@ grammar Pbxproj
   end
   
   rule key_value
-    key ' = ' value ';'
+    key ' = ' value (space comment)? ';'
     /
     key ' = ' block ';'
   end
@@ -45,7 +45,6 @@ grammar Pbxproj
   end
   
   rule value
-    [0-9]+
+    [0-9A-F]+
   end
-  
 end

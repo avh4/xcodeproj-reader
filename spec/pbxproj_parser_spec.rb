@@ -39,4 +39,12 @@ describe PbxprojParser do
       }
     })
   end
+  it "should parse a document with an map containing an object" do
+    should_parse(%{
+      // !$*UTF8*$!
+      {
+      \trootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+      }
+    })
+  end
 end
