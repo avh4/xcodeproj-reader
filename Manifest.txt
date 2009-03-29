@@ -7,5 +7,3 @@ lib/xcodeproj-reader.rb
 script/console
 script/destroy
 script/generate
-test/test_helper.rb
-test/test_xcodeproj-reader.rb
