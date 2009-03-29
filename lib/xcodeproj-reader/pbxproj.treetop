@@ -1,0 +1,51 @@
+grammar Pbxproj
+  rule document
+    preamble
+    (block newline)?
+  end
+  
+  rule preamble
+    "// !$*UTF8*$!" (newline)
+  end
+  
+  rule newline
+    [\n]
+  end
+  
+  rule block
+    '{' newline (line)* tab* '}'
+  end
+  
+  rule line
+    space newline
+    /
+    tab* key_value newline
+  end
+  
+  rule key_value
+    key ' = ' value ';'
+    /
+    key ' = ' block ';'
+  end
+  
+  rule space
+    ' '*
+  end
+  
+  rule tab
+    '  ' / [\t]
+  end
+  
+  rule comment
+    '/*' (!'*/' . )* '*/'
+  end
+  
+  rule key
+    [a-zA-Z]+
+  end
+  
+  rule value
+    [0-9]+
+  end
+  
+end

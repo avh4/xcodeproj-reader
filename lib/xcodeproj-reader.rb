@@ -6,3 +6,7 @@ module XcodeprojReader
 end
 
 require 'xcodeproj-reader/reader'
+
+require 'rubygems'
+require 'treetop'
+Treetop.load File.dirname(__FILE__) + "/xcodeproj-reader/pbxproj.treetop"
