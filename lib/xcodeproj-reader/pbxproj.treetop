@@ -9,21 +9,13 @@ grammar Pbxproj
   end
   
   rule block
-    '{' space? (statement)* space? '}' space?
+    '{' space? (statement space?)* space? '}' space?
   end
   
   rule statement
-    space? key_value space?
+    key ' = ' value ';'
     /
-    space? comment space?
-  end
-  
-  rule key_value
-    key ' = ' value (space comment)? ';' space?
-    /
-    key ' = ' block ';'
-    /
-    key ' = ' array ';'
+    comment
   end
   
   rule array
@@ -35,20 +27,24 @@ grammar Pbxproj
   end
   
   rule comment
-    '/*' (!'*/' . )* '*/'
+    space? '/*' (!'*/' . )* '*/'
   end
   
   rule key
-    [a-zA-Z0-9_]+ (space comment)?
+    [a-zA-Z0-9_]+ comment?
     /
     '"' (!'"' .)* '"'
   end
   
   rule value
-    [0-9A-F]+ &[^a-zG-Z] (space comment)?
+    [0-9A-F]+ &[^a-zG-Z] comment?
     /
     [a-zA-Z\.\/_0-9]+
     /
     '"' (!'"' .)* '"'
+    /
+    block
+    /
+    array
   end
 end
