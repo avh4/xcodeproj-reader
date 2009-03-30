@@ -48,6 +48,14 @@ describe PbxprojParser do
       }
     })
   end
+  it "should parse a document with an map containing an object" do
+    should_parse(%{
+      // !$*UTF8*$!
+      {
+      \trootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+      }
+    })
+  end
   it "should parse a document with an map containing an empty block" do
     should_parse(%{
       // !$*UTF8*$!
@@ -57,12 +65,61 @@ describe PbxprojParser do
       }
     })
   end
-  it "should parse a document with an map containing an object" do
+  it "should parse a document with an map containing a block with comments" do
     should_parse(%{
       // !$*UTF8*$!
       {
-      \trootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+      \tobjects = {
+      /* Begin PBXBuildFile section */
+      \t};
       }
     })
+  end
+  it "should parse a document with an map containing a block with an integer" do
+    should_parse(%{
+      // !$*UTF8*$!
+      {
+      \tobjects = {
+      \t\t1D3623260D0F684500981E51 /* Default_iPhoneAppDelegate.m in Sources */ = 45;
+      \t};
+      }
+    })
+  end
+  it "should parse a document with an map containing a block with a block with an integer" do
+    should_parse(%{
+      // !$*UTF8*$!
+      {
+      \tobjects = {
+      \t\t1D3623260D0F684500981E51 /* Default_iPhoneAppDelegate.m in Sources */ = {isa = 45; };
+      \t};
+      }
+    })
+  end
+  it "should parse a document with an map containing a block with a block" do
+    should_parse(%{
+      // !$*UTF8*$!
+      {
+      \tobjects = {
+      \t\t1D3623260D0F684500981E51 /* Default_iPhoneAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* Default_iPhoneAppDelegate.m */; };
+      \t};
+      }
+    })
+  end
+  it "should parse a document with an map containing a block with a block containing empty lines and comments" do
+    should_parse(%{
+      // !$*UTF8*$!
+      {
+      \tobjects = {
+      
+      /* Begin PBXBuildFile section */
+      \t\t1D3623260D0F684500981E51 /* Default_iPhoneAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* Default_iPhoneAppDelegate.m */; };
+      \t};
+      }
+    })
+  end
+  
+  
+  it "should parse a real Xcode project file" do
+    @parser.should parse(File.read(File.dirname(__FILE__) + "/../test_data/Default iPhone/Default iPhone.xcodeproj/project.pbxproj"))
   end
 end

@@ -11,6 +11,10 @@ describe "listing files" do
     it "should return the classes" do
       @reader.files("Classes").should == ["RootViewController.h", "RootViewController.m", "Default_iPhoneAppDelegate.h", "Default_iPhoneAppDelegate.m"]
     end
+    
+    it "should list the resoures" do
+      @reader.files("Resources").should == ["RootViewController.xib", "MainWindow.xib", "Info.plist"]
+    end
   end
   
 end

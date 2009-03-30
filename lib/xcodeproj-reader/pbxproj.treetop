@@ -13,23 +13,25 @@ grammar Pbxproj
   end
   
   rule block
-    '{' newline (line)* tab* '}'
+    '{' newline? (statement)* tab* '}'
   end
   
-  rule line
-    space newline
+  rule statement
+    space? newline
     /
-    tab* key_value newline
+    tab* key_value newline?
+    /
+    comment newline
   end
   
   rule key_value
-    key ' = ' value (space comment)? ';'
+    key ' = ' value (space comment)? ';' space?
     /
     key ' = ' block ';'
   end
   
   rule space
-    ' '*
+    ' '+
   end
   
   rule tab
@@ -41,10 +43,12 @@ grammar Pbxproj
   end
   
   rule key
-    [a-zA-Z]+
+    [a-zA-Z0-9]+ (space comment)?
   end
   
   rule value
     [0-9A-F]+
+    /
+    [a-zA-Z]+
   end
 end
