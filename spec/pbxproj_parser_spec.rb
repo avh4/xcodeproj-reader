@@ -117,6 +117,46 @@ describe PbxprojParser do
       }
     })
   end
+  it "should parse filetype values" do
+    should_parse(%{
+      // !$*UTF8*$!
+      {
+      \tlastKnownFileType = wrapper.framework;
+      }
+    })
+  end
+  it "should parse 'Foundation.framework'" do
+    should_parse(%{
+      // !$*UTF8*$!
+      {
+      \tname = Foundation.framework;
+      }
+    })
+  end
+  it "should parse filesystem paths" do
+    should_parse(%{
+      // !$*UTF8*$!
+      {
+      \tpath = System/Library/Frameworks/Foundation.framework;
+      }
+    })
+  end
+  it "should parse filenames with underscores" do
+    should_parse(%{
+      // !$*UTF8*$!
+      {
+      \tpath = Default_iPhoneAppDelegate.h;
+      }
+    })
+  end
+  it "should parse filenames with strings" do
+    should_parse(%{
+      // !$*UTF8*$!
+      {
+      \tsourceTree = "<group>";
+      }
+    })
+  end
   
   
   it "should parse a real Xcode project file" do

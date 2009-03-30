@@ -47,8 +47,10 @@ grammar Pbxproj
   end
   
   rule value
+    [a-zA-Z\.\/_]+
+    /
     [0-9A-F]+
     /
-    [a-zA-Z]+
+    '"' (!'"' .)* '"'
   end
 end
