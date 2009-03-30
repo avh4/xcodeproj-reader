@@ -1,11 +1,11 @@
 grammar Pbxproj
   rule document
     preamble
-    (block newline)?
+    block?
   end
   
   rule preamble
-    "// !$*UTF8*$!" (newline)
+    "// !$*UTF8*$!" newline
   end
   
   rule newline
@@ -13,13 +13,13 @@ grammar Pbxproj
   end
   
   rule block
-    '{' newline? (statement)* tab* '}'
+    '{' newline? (statement)* space? '}' newline?
   end
   
   rule statement
     space? newline
     /
-    tab* key_value newline?
+    space? key_value newline?
     /
     comment newline
   end
@@ -33,15 +33,11 @@ grammar Pbxproj
   end
   
   rule array
-    '(' newline? (tab* value ',' newline?)* tab* ')'
+    '(' newline? (space value ',' newline?)* space ')'
   end
   
   rule space
-    ' '+
-  end
-  
-  rule tab
-    '  ' / [\t]
+    [ \t]+
   end
   
   rule comment
