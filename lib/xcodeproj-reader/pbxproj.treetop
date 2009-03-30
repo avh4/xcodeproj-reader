@@ -17,11 +17,9 @@ grammar Pbxproj
   end
   
   rule statement
-    space? newline
-    /
     space? key_value newline?
     /
-    comment newline
+    space? comment newline?
   end
   
   rule key_value
@@ -37,7 +35,7 @@ grammar Pbxproj
   end
   
   rule space
-    [ \t]+
+    [ \t\n]+
   end
   
   rule comment
