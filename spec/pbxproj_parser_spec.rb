@@ -178,7 +178,22 @@ describe PbxprojParser do
       }
     })
   end
-  
+  it "should parse keys with underscores" do
+    should_parse(%{
+      // !$*UTF8*$!
+      {
+      \tALWAYS_SEARCH_USER_PATHS = NO;
+      }
+    })
+  end
+  it "should parse string keys" do
+    should_parse(%{
+      // !$*UTF8*$!
+      {
+      \t"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+      }
+    })
+  end
   
   
   it "should parse a real Xcode project file" do
