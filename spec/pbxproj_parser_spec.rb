@@ -157,6 +157,28 @@ describe PbxprojParser do
       }
     })
   end
+  it "should parse arrays" do
+    should_parse(%{
+      // !$*UTF8*$!
+      {
+      \tfiles = (
+      \t\t1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+      \t\t1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+      \t\t2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
+      \t);
+      }
+    })
+  end
+  it "should parse empty arrays" do
+    should_parse(%{
+      // !$*UTF8*$!
+      {
+      \tbuildRules = (
+      \t);
+      }
+    })
+  end
+  
   
   
   it "should parse a real Xcode project file" do

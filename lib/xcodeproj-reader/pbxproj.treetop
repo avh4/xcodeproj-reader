@@ -28,6 +28,12 @@ grammar Pbxproj
     key ' = ' value (space comment)? ';' space?
     /
     key ' = ' block ';'
+    /
+    key ' = ' array ';'
+  end
+  
+  rule array
+    '(' newline? (tab* value ',' newline?)* tab* ')'
   end
   
   rule space
@@ -49,7 +55,7 @@ grammar Pbxproj
   rule value
     [a-zA-Z\.\/_]+
     /
-    [0-9A-F]+
+    [0-9A-F]+ (space comment)?
     /
     '"' (!'"' .)* '"'
   end
